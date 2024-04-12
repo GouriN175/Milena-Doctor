@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "793802797461",
+    "project_id": "milena-2024",
+    "storage_bucket": "milena-2024.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793802797461:android:f501a261eb45122a4a869c",
+        "android_client_info": {
+          "package_name": "com.example.docside_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkZhmEq_CgHHsuAosUuZUukra0ZnDRN3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793802797461:android:231242e17b2e0d1b4a869c",
+        "android_client_info": {
+          "package_name": "com.example.milena_user"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkZhmEq_CgHHsuAosUuZUukra0ZnDRN3E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
