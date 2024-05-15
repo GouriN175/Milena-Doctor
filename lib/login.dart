@@ -15,8 +15,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final FirebaseAuthService _auth = FirebaseAuthService();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void dispose() {
@@ -32,14 +32,14 @@ class _LoginState extends State<Login> {
         automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 50),
-                SizedBox(
+                const SizedBox(height: 50),
+                const SizedBox(
                     height: 150,
                     child: Image(image: AssetImage('assets/Logo.png'))),
                 Text(
@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 TextField(
                   controller: _emailController,
                   textAlign: TextAlign.center,
@@ -60,7 +60,7 @@ class _LoginState extends State<Login> {
                     hintText: "Email",
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _passwordController,
                   textAlign: TextAlign.center,
@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                   ),
                   obscureText: true, // Hide text
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 SizedBox(
                   width: 100,
                   height: 50,
@@ -83,15 +83,15 @@ class _LoginState extends State<Login> {
                           backgroundColor: Colors.blue),
                       child: const Text('Login')),
                 ),
-                SizedBox(height: 170), // Adding some spacing
+                const SizedBox(height: 170), // Adding some spacing
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ForgotPassword()));
+                            builder: (context) => const ForgotPassword()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Forgot Password?",
                     style: TextStyle(color: Colors.blue),
                   ),
@@ -110,12 +110,15 @@ class _LoginState extends State<Login> {
 
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    if (user != null) {
-      print("User Loggen in");
+    if (user != null) 
+    {
+      print("User Logged in");
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => ScreenHome()));
-    } else {
-      print("Error");
+          context, MaterialPageRoute(builder: (context) => const ScreenHome()));
     }
+     else
+      {
+      print("Error in log-in");
+      }
   }
 }

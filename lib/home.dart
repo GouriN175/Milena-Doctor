@@ -1,7 +1,6 @@
 import 'package:docside_1/alert.dart';
 import 'package:docside_1/profile.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ScreenHome extends StatefulWidget {
   const ScreenHome({Key? key}) : super(key: key);
@@ -12,15 +11,15 @@ class ScreenHome extends StatefulWidget {
 
 class _ScreenHomeState extends State<ScreenHome> {
   int _currentSelectedIndex = 0;
-  final _pages = [Alert(), Profile()];
+  final _pages = [const Alert(), const Profile()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_currentSelectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-       backgroundColor: Colors.blue,
-             items: const <BottomNavigationBarItem>[
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.blue,
+          items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_sharp),
                 label: 'Alert',
@@ -31,7 +30,6 @@ class _ScreenHomeState extends State<ScreenHome> {
               backgroundColor: Colors.blue,
             ),
           ],
-         
           currentIndex: _currentSelectedIndex,
           selectedItemColor: Colors.blue[100],
           iconSize: 40,

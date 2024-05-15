@@ -78,12 +78,12 @@ class Getyoustarted extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => signup()));
+                                    builder: (context) => Signup()));
                           },
-                          child: Text(
+                          child: const Text(
                             'Sign Up',
                             style: TextStyle(fontSize: 16, color: Colors.blue),
                           ),

@@ -11,11 +11,13 @@ class EditProfile extends StatefulWidget {
   State<EditProfile> createState() => _EditProfileState();
 }
 
- class _EditProfileState extends State<EditProfile> {
+class _EditProfileState extends State<EditProfile> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _ageController = TextEditingController();
-  final TextEditingController _specializationController = TextEditingController();
-  final TextEditingController _contactNumberController =TextEditingController();
+  final TextEditingController _specializationController =
+      TextEditingController();
+  final TextEditingController _contactNumberController =
+      TextEditingController();
   String? yearsOfExperience;
   List<String> experienceRanges = ['1-3', '3-6', '6-9', '9-12', '12-15', '15+'];
 
@@ -33,17 +35,19 @@ class EditProfile extends StatefulWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(
-          'Edit Profile',
-          style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+        title: const Text(
+          'EDIT PROFILE',
+          style: TextStyle(color: Colors.white),
         ),
-        titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        backgroundColor: Colors.blue,
+        elevation: 20,
       ),
       body: Padding(
-        padding: EdgeInsets.all(25),
+        padding: const EdgeInsets.all(25),
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 30),
               TextField(
                 controller: _nameController,
                 textAlign: TextAlign.center,
@@ -54,7 +58,7 @@ class EditProfile extends StatefulWidget {
                   hintText: "Full Name",
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
                 controller: _ageController,
                 textAlign: TextAlign.center,
@@ -66,7 +70,7 @@ class EditProfile extends StatefulWidget {
                 ),
                 keyboardType: TextInputType.number,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               DropdownButtonFormField<String>(
                 value: yearsOfExperience,
@@ -80,7 +84,7 @@ class EditProfile extends StatefulWidget {
                     borderRadius: BorderRadius.circular(30),
                   ),
                   hintText: "Experience",
-                  prefixIcon: SizedBox(width: 160),
+                  prefixIcon: const SizedBox(width: 160),
                 ),
                 items: experienceRanges.map((String yearsOfExperience) {
                   return DropdownMenuItem<String>(
@@ -94,7 +98,7 @@ class EditProfile extends StatefulWidget {
                   );
                 }).toList(),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               //SPECIALIZATION
               TextField(
@@ -107,7 +111,7 @@ class EditProfile extends StatefulWidget {
                   hintText: "Specialisation",
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               //CONTACT NUMBER
               TextField(
@@ -121,11 +125,9 @@ class EditProfile extends StatefulWidget {
                 ),
                 keyboardType: TextInputType.phone,
               ),
-           
 
-
-          // NEED TO WORK ON
-              SizedBox(height: 15),
+              // NEED TO WORK ON
+              const SizedBox(height: 15),
               TextField(
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -136,7 +138,7 @@ class EditProfile extends StatefulWidget {
                 ),
                 obscureText: true, // Hide text
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               TextField(
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
@@ -147,36 +149,41 @@ class EditProfile extends StatefulWidget {
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 15),
-              SizedBox(
-                width: 100,
-                height: 50,
-                child: TextButton(
-                    onPressed: () {
-                      _updateProfileData();
-                      Navigator.pop(context,
-                          MaterialPageRoute(builder: (context) => Profile()));
-                    },
-                    style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.blue),
-                    child: const Text('Update')),
-               ),
-             
-              SizedBox(height: 15),
-              SizedBox(
-                width: 100,
-                height: 50,
-                child: TextButton(
-                    onPressed: () {
-                        Navigator.pop(context,
-                          MaterialPageRoute(builder: (context) => Profile()));
-                    },
-                    style: TextButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.blue),
-                    child: const Text('Cancel')),
-               ),
+              const SizedBox(height: 15),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    height: 50,
+                    child: TextButton(
+                        onPressed: () {
+                          _updateProfileData();
+                          Navigator.pop(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Profile()));
+                        },
+                        style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blue),
+                        child: const Text('Update')),
+                  ),
+                  SizedBox(
+                    width: 100,
+                    height: 50,
+                    child: TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: TextButton.styleFrom(
+                            foregroundColor: Colors.white,
+                            backgroundColor: Colors.blue),
+                        child: const Text('Cancel')),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -197,8 +204,8 @@ class EditProfile extends StatefulWidget {
         'contactNumber': _contactNumberController.text,
       });
       print("User details updated in Firestore");
-      
     } catch (e) {
-      print("Error updating user details: $e");  }
+      print("Error updating user details: $e");
+    }
   }
 }

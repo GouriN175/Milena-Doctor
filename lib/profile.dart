@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key); 
+  const Profile({Key? key}) : super(key: key);
 
   @override
   _ProfileState createState() => _ProfileState();
 }
 
 class _ProfileState extends State<Profile> {
-  User? _user = FirebaseAuth.instance.currentUser;
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final User? _user = FirebaseAuth.instance.currentUser;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late DocumentSnapshot<Map<String, dynamic>> _userData;
 
   @override
@@ -36,89 +36,94 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-       leading: Icon(Icons.account_circle_rounded),
-         title: Text('PROFILE'),
-         backgroundColor: Colors.blue,
-        elevation: 15,
+        leading: const Icon(
+          Icons.refresh,
+          color: Colors.white,
+        ),
+        title: const Text(
+          'PROFILE',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
+        elevation: 20,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              showMenu(
+                context: context,
+                position: RelativeRect.fromLTRB(100, 100, 0, 0),
+                items: [
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(Icons.edit),
+                        SizedBox(width: 10),
+                        Text("Edit Profile"),
+                      ],
+                    ),
+                    value: "edit_profile",
+                  ),
+                  PopupMenuItem(
+                    child: Row(
+                      children: [
+                        Icon(Icons.logout),
+                        SizedBox(width: 10),
+                        Text("Logout"),
+                      ],
+                    ),
+                    value: "logout",
+                  ),
+                ],
+                elevation: 8.0,
+              ).then((value) {
+                if (value == "edit_profile") {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EditProfile(userId: _user?.uid ?? '')),
+                  );
+                } else if (value == "logout") {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Login()),
+                  );
+                }
+              });
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 40),
-            CircleAvatar(
-              radius: 70,
-              // backgroundImage: NetworkImage(_user.photoURL ?? ''),
-            ),
-
-            const SizedBox(height: 20),
-             itemProfile('Name', _userData['name'] ?? '', Icons.person),
+            const SizedBox(height: 30),
+            itemProfile('Name', _userData['name'] ?? '', Icons.person),
             const SizedBox(height: 10),
             itemProfile('Email', _user?.email ?? '', CupertinoIcons.mail),
             const SizedBox(
               height: 10,
             ),
-            itemProfile('Phone', _userData['contactNumber'] ??'', CupertinoIcons.phone),
+            itemProfile('Phone', _userData['contactNumber'] ?? '',
+                CupertinoIcons.phone),
             const SizedBox(
               height: 10,
             ),
-            itemProfile(
-                'Registration Number', _userData['registrationNumber'] ?? '', CupertinoIcons.number),
+            itemProfile('Registration Number',
+                _userData['registrationNumber'] ?? '', CupertinoIcons.number),
             const SizedBox(height: 10),
-            itemProfile('Specialization', _userData['specialization'] ?? '', Icons.plus_one_rounded),
+            itemProfile('Specialization', _userData['specialization'] ?? '',
+                Icons.plus_one_rounded),
             // Add other profile details you want to display
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-
-            Row(
-              children: [
-                SizedBox(
-                  height: 50,
-                  width: MediaQuery.of(context).size.width / 2 - 30,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => EditProfile(userId: _user?.uid ?? '' ),),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.all(15),
-                      elevation: 5, // Add elevation for shadow effect
-                    ),
-                    child: const Text(
-                      'Edit Profile',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(width: 20),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2 - 30,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      padding: const EdgeInsets.all(15),
-                      elevation: 5, // Add elevation for shadow effect
-                    ),
-                    child: const Text(
-                      'Log Out',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-              ],
-            )
           ],
         ),
       ),
@@ -132,8 +137,8 @@ class _ProfileState extends State<Profile> {
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
             BoxShadow(
-                offset: Offset(0, 5),
-                color: Color.fromARGB(255, 125, 153, 223).withOpacity(.2),
+                offset: const Offset(0, 5),
+                color: const Color.fromARGB(255, 125, 153, 223).withOpacity(.2),
                 spreadRadius: 2,
                 blurRadius: 10)
           ]),
@@ -151,7 +156,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark));
-        runApp(const MaterialApp(
+  runApp(const MaterialApp(
     home: Profile(),
-      ));
+  ));
 }
