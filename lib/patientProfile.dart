@@ -8,9 +8,9 @@ class PatientProfile extends StatefulWidget {
 }
 
 class _PatientProfileState extends State<PatientProfile> {
-  String? name;
-  int? age;
-  String? gender;
+  String? name = 'Loading....';
+  int? age = 0;
+  String? gender = 'Loading---';
   TextEditingController controller = TextEditingController();
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _PatientProfileState extends State<PatientProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Alert Details"),
+        title: const Text("Alert Details"),
       ),
       body: Column(
         children: [
@@ -31,20 +31,20 @@ class _PatientProfileState extends State<PatientProfile> {
               padding: const EdgeInsets.fromLTRB(25, 0, 25, 5),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   itemProfile(title: name.toString(), icon: Icons.person),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   itemProfile(
                       title: '$age', icon: Icons.calendar_month_outlined),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   itemProfile(title: '$gender', icon: Icons.transgender),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Divider(
@@ -56,7 +56,7 @@ class _PatientProfileState extends State<PatientProfile> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
+                          return const Center(
                               child:
                                   CircularProgressIndicator()); // Placeholder for loading indicator
                         } else if (snapshot.hasError) {
@@ -130,7 +130,7 @@ class _PatientProfileState extends State<PatientProfile> {
     String? message = controller.text;
     String? emailId = FirebaseAuth.instance.currentUser?.email;
     String? id;
-    print('here 163');
+    // print('here 163');
     if (emailId != null) {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance
@@ -138,7 +138,9 @@ class _PatientProfileState extends State<PatientProfile> {
               .where('email', isEqualTo: emailId)
               .get();
       id = querySnapshot.docs.first.id;
-    } else {
+    }
+    else
+     {
       id = '';
       print('Empty email');
     }
@@ -165,7 +167,7 @@ class _PatientProfileState extends State<PatientProfile> {
   Future<void> fetchpatientDetails() async {
     String? emailId = FirebaseAuth.instance.currentUser?.email;
     String? id;
-    print('here 163');
+    // print('here 163');
     if (emailId != null) {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
           await FirebaseFirestore.instance
@@ -299,8 +301,8 @@ class itemProfile extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 5),
-            color: Color.fromARGB(255, 125, 153, 223).withOpacity(.2),
+            offset: const Offset(0, 5),
+            color: const Color.fromARGB(255, 125, 153, 223).withOpacity(.2),
             spreadRadius: 2,
             blurRadius: 10,
           ),
@@ -344,20 +346,20 @@ class MessageTile extends StatelessWidget {
         left: sentByMe ? 0 : 24,
         right: sentByMe ? 24 : 0,
       ),
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(vertical: 8),
       width: MediaQuery.of(context).size.width,
       alignment: sentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
           color: sentByMe ? Colors.blue : Colors.blue,
           borderRadius: sentByMe
-              ? BorderRadius.only(
+              ? const BorderRadius.only(
                   topLeft: Radius.circular(23),
                   topRight: Radius.circular(23),
                   bottomLeft: Radius.circular(23),
                 )
-              : BorderRadius.only(
+              : const BorderRadius.only(
                   topLeft: Radius.circular(23),
                   topRight: Radius.circular(23),
                   bottomRight: Radius.circular(23),
@@ -380,7 +382,7 @@ class MessageTile extends StatelessWidget {
                 child: Text(
                   sender,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
                   ),
